@@ -1,0 +1,35 @@
+<HTML>
+    <style>
+        div {
+            background-color: lightslategrey;
+            border-radius: 15px;
+            width: fit-content;
+            padding: 10px;
+        }
+        h1 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        button {
+            border-radius: 4px;
+            border-style: none;
+            padding: 15px;
+            font-size: 17px;
+        }
+    </style>
+    <script>
+        var xhttp = new XMLHttpRequest();
+    </script>
+    <BODY>
+        <center>
+            <div>
+                <h1>Rover Control Interface</h1>
+                <br>
+                <button onclick='xhttp.open("GET", "toggle", true); xhttp.send()'>Toggle Motor Status (On/Off)</button>
+            </div>
+            <p>A project by ENGR 107 Team 2</p>
+        </center>
+    </BODY>
+</HTML>
