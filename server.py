@@ -1,11 +1,16 @@
 from aiohttp import web
+from gpiozero import OutputDevice
+
+relay = OutputDevice(17)
+relay.off()
 
 async def handle(req):
     print("Got request")
     return web.FileResponse("page.html")
 
 async def toggle(req):
-    print("Toggle code goes here")
+    relay.toggle()
+    print(f"Toggled; Current value is {relay.value}")
     return web.Response()
 
 app = web.Application()
