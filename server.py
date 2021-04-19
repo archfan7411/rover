@@ -1,32 +1,35 @@
-# aiohttp will be used to create the webserver
+#!/usr/bin/env python3
+
+# Server to control a motor connected to a PiZero.
+
+import gpiozero
+
 from aiohttp import web
-# gpiozero's OutputDevice class is suffificient for our needs
-from gpiozero import OutputDevice
 
-# Creates the OutputDevice relay, controlling GPIO pin 17
-relay = OutputDevice(17)
+# Corresponds to pin 11 on a PiZero
+MOTOR_PIN = 17
 
-# Sets the pin as off. Not sure if this is required.
-relay.off()
+motor = gpiozero.OutputDevice(17)
 
-# Handles requests for the home page
+# TODO figure out whether this required 
+motor.off()
+
+# Serves the homepage
 async def handle(req):
     print("Got request")
-    # Returns the HTML file for viewing
     return web.FileResponse("page.html")
 
-# Handles requests to toggle the pin
+# Toggles the state of the motor pin
 async def toggle(req):
-    # Toggles the relay
-    relay.toggle()
-    print(f"Toggled; Current value is {relay.value}")
+    motor.toggle()
+    print(f"Toggled; Current value is {motor.value}")
     return web.Response()
 
-app = web.Application()
+if __name__ = "__main__":
+    app = web.Application()
 
-# Requests to <address>/toggle should toggle, but normal
-# requests to just the address should return the home page
-app.add_routes([web.get('/toggle', toggle), web.get('/', handle)])
+    # Requests to <address>/toggle should toggle, but normal
+    # requests to just the address should return the home page
+    app.add_routes([web.get('/toggle', toggle), web.get('/', handle)])
 
-# Starts the server, a blocking call
-web.run_app(app)
+    web.run_app(app)
